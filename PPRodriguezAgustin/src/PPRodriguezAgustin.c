@@ -39,7 +39,7 @@ int main(void) {
 		        printf("7-Informar de Clientes y Prestamo\n");
 		        printf("8-Informar Cliente con mas prestamo\n");
 		        printf("9-Informar cantidad de prestamos con 12 cuotas saldadas\n");
-		        printf("10-Informar (no hecho)\n");
+		        printf("10-Informar prestamo por cuota (no hecho)\n");
 		        printf("11-Salir\n");
 		        opcionMenu=getInt("\nIngrese una opcion: ");
 		        switch(opcionMenu)
@@ -74,7 +74,6 @@ int main(void) {
 		            	break;
 		            case 10:
 		            	Informar_mostrarPrestamoPorCantidadDeCuotas(arrayPrestamoMain,PRESTAMO);
-		            	break;
 		            	break;
 		            case 11:
 		            	continuarMenu='n';

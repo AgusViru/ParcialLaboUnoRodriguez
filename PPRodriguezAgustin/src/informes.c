@@ -212,9 +212,12 @@ void Informar_mostrarPrestamoPorCantidadDeCuotas(Prestamo* arrayPrestamo,int can
     {
     	if(utn_getEntero(&auxiliarCantidadCuotas,5,"\nIngrese Cant de cuotas: \n","\nError, no es un ID valido.\n",6,48)==0)
     	{
-    		arrayPrestamo[indexPrestamo].cantidadCuotas=auxiliarCantidadCuotas;
     		prestamo_buscarPorCuota(&arrayPrestamo[indexPrestamo],cantidadElementos,auxiliarCantidadCuotas);
-    		prestamo_mostrarUnoSoloPorCuota(arrayPrestamo[indexPrestamo],cantidadElementos,auxiliarCantidadCuotas);
+    		arrayPrestamo[indexPrestamo].cantidadCuotas=auxiliarCantidadCuotas;
+    		if(arrayPrestamo[indexPrestamo].cantidadCuotas == auxiliarCantidadCuotas)
+    		{
+    			prestamo_mostrarUnoSoloPorCuota(arrayPrestamo[indexPrestamo],cantidadElementos,auxiliarCantidadCuotas);
+    		}
     	}
 
     }
