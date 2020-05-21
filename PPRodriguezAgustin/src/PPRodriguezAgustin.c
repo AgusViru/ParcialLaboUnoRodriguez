@@ -37,7 +37,10 @@ int main(void) {
 		        printf("5-Imprimir Clientes con prestamos activos\n");
 		        printf("6-Imprimir Prestamo con cuil cliente  (No imprime cuit)\n");
 		        printf("7-Informar de Clientes y Prestamo\n");
-		        printf("8-Salir\n");
+		        printf("8-Informar Cliente con mas prestamo\n");
+		        printf("9-Informar cantidad de prestamos con 12 cuotas saldadas\n");
+		        printf("10-Informar (no hecho)\n");
+		        printf("11-Salir\n");
 		        opcionMenu=getInt("\nIngrese una opcion: ");
 		        switch(opcionMenu)
 		        {
@@ -64,6 +67,16 @@ int main(void) {
 		            	informes_gestionarClientes(arrayPrestamoMain,PRESTAMO,arrayClienteMain,CLIENTES);
 		            	break;
 		            case 8:
+		            	Informe_ClienteConMasPrestamos(arrayPrestamoMain,PRESTAMO,arrayClienteMain,CLIENTES);
+		            	break;
+		            case 9:
+		            	Informe_cantidadDePrestamosCon12CuotasSaldadas(arrayPrestamoMain, PRESTAMO, arrayClienteMain, CLIENTES);
+		            	break;
+		            case 10:
+		            	Informar_mostrarPrestamoPorCantidadDeCuotas(arrayPrestamoMain,PRESTAMO);
+		            	break;
+		            	break;
+		            case 11:
 		            	continuarMenu='n';
 		            	break;
 		            default:

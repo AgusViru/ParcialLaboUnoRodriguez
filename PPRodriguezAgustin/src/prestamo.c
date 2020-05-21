@@ -220,16 +220,6 @@ void prestamo_mostrar(Prestamo* arrayPrestamo,int cantidadElementos)
         }
     }
 }
-/** \brief cancela la venta cuando se da de baja el cliente
- *
- * \param array venta
- * \param los elementos del array de venta
- * \param array cliente
- * \param los elementos del array del cliente
- * \param id para igualarlo al idcliente de la venta y asi liberar el espacio en el array
- * \return 0 si encontro el id de cliente para dar de baja la venta -1 si no
- *
- */
 
 int Prestamo_saldarPrestamo(Prestamo* arrayPrestamo, int cantidadElementos, Cliente* arrayCliente, int cantidadElementosCliente, int ID, int indice)
 {
@@ -244,7 +234,7 @@ int Prestamo_saldarPrestamo(Prestamo* arrayPrestamo, int cantidadElementos, Clie
 	    }
 	    else
 	    {
-	        prestamo_mostrar(arrayPrestamo,cantidadElementos); // poner prestamos
+	        prestamo_mostrar(arrayPrestamo,cantidadElementos);
 	        if(getStrNumerosSinRango("\nIngrese el id del prestamo a saldar: ",auxCodigoStr,"\nSolo se permiten numeros\n",3))
 	        {
 	            auxCodigoInt=atoi(auxCodigoStr);
@@ -665,6 +655,79 @@ int prestamo_imprimirPorCUIT(Prestamo* arrayPrestamo, int cantidadElementos, cha
                 retorno=0;
                 break;
             }
+        }
+    }
+    return retorno;
+}
+int Prestamo_ContadorDePrestamosPorIdClienteTOTALES(Prestamo* arrayPrestamo, int cantidadElementos, int idCliente, int flag, int flagDos)//contador de ventas
+{
+    int i;
+    int contador=0;
+    if(arrayPrestamo!=NULL && cantidadElementos>0)
+    {
+        for(i=0;i<cantidadElementos;i++)
+        {
+            if(arrayPrestamo[i].isEmpty==0 && ((flag==0 && arrayPrestamo[i].idCliente==idCliente && arrayPrestamo[i].estado == 0)&&
+               ((flag && arrayPrestamo[i].idCliente==idCliente && arrayPrestamo[i].estado==1))))
+            {
+                contador++;
+            }
+        }
+    }
+    return contador;
+}
+int Prestamo_contadorDePrestamos(Prestamo* arrayPrestamo, int cantidadElementos,int idCliente)
+{
+    int i;
+    int contador=0;
+    if(arrayPrestamo!=NULL && cantidadElementos>0)
+    {
+        for(i=0;i<cantidadElementos;i++)
+        {
+            if(arrayPrestamo[i].isEmpty==0 && arrayPrestamo[i].idCliente == idCliente)
+            {
+                contador+=arrayPrestamo[i].estado=1;
+                contador+=arrayPrestamo[i].estado=0;
+            }
+        }
+    }
+    return contador;
+}
+int Prestamo_ContadorDePrestamosDeMasDe12CuotasPorCliente(Prestamo* arrayPrestamo, int cantidadElementos, int idCliente,int flag)
+{
+    int i;
+    int contador=0;
+    if(arrayPrestamo!=NULL && cantidadElementos>0)
+    {
+        for(i=0;i<cantidadElementos;i++)
+        {
+            if(flag && arrayPrestamo[i].isEmpty==0 && arrayPrestamo[i].idCliente == idCliente && arrayPrestamo[i].estado==0 && arrayPrestamo[i].cantidadCuotas==12)
+            {
+                contador+=arrayPrestamo[i].cantidadCuotas;
+            }
+        }
+    }
+    return contador;
+}
+void prestamo_mostrarUnoSoloPorCuota(Prestamo unPrestamo, int indicePrestamo, int cantidadDeCuotas)
+{
+    printf("\n%d\t",unPrestamo.id);
+    printf("%4d",unPrestamo.importe);
+    printf("%12d",unPrestamo.cantidadCuotas);
+    printf("%15d",unPrestamo.idCliente);
+    printf("%15d\n\t",unPrestamo.estado);
+}
+
+int prestamo_buscarPorCuota(Prestamo* arrayPrestamo,int cantidadElementos,int cuotaABuscar)
+{
+    int retorno=-1;
+    int i;
+    for(i=0;i<cantidadElementos;i++)
+    {
+        if((arrayPrestamo[i].isEmpty==0) && (arrayPrestamo[i].cantidadCuotas==cuotaABuscar))
+        {
+            retorno=i;
+            break;
         }
     }
     return retorno;

@@ -55,4 +55,10 @@ int Prestamo_contadorDePrestamosSaldados(Prestamo* arrayPrestamo, int cantidadEl
 int Prestamo_ContadorPrestamoPorCuit(Prestamo* arrayPrestamo,int cantidadElementos,char* cuitCliente,Cliente* arrayCliente,int cantidadElementosCliente);
 int prestamo_imprimirPorId(Prestamo* arrayPrestamo, int cantidadElementos, int ID,Cliente* arrayClientes, int cantidadElementosClientes);
 int prestamo_imprimirPorCUIT(Prestamo* arrayPrestamo, int cantidadElementos, char* cuit,Cliente* arrayClientes, int cantidadElementosClientes);
+int Prestamo_ContadorDePrestamosPorIdClienteTOTALES(Prestamo* arrayPrestamo, int cantidadElementos, int idCliente, int flag,int flagDos);
+int Prestamo_contadorDePrestamos(Prestamo* arrayPrestamo, int cantidadElementos,int idCliente);
+int Prestamo_ContadorDePrestamosDeMasDe12CuotasPorCliente(Prestamo* arrayPrestamo, int cantidadElementos, int idCliente,int flag);
+void prestamo_mostrarUnoSoloPorCuota(Prestamo unPrestamo, int indicePrestamo, int cantidadDeCuotas);
+int prestamo_buscarPorCuota(Prestamo* arrayPrestamo,int cantidadElementos,int cuotaABuscar);
+
 #endif /* PRESTAMO_H_ */

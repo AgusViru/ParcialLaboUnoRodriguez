@@ -47,6 +47,13 @@ void cliente_gestionarClientes(Cliente* arrayCliente,int cantidadElementos, int*
     }
     while(continuarMenu=='s');
 }
+/** \brief iniciabiliza el array en 1 para saber que esta vacio
+ *
+ * \param el array de cliente
+ * \param la cantidad de elementos del array
+ * \
+ *
+ */
 void cliente_inicializarDatos(Cliente* arrayCliente,int cantidadElementos)
 {
     int i;
@@ -101,13 +108,21 @@ void cliente_mostrar(Cliente* arrayCliente,int cantidadElementos)
         {
             //indiceBusqueda=Prestamo_buscarPorIdDos(arrayPrestamo,cantidadPrestamo,arrayPrestamo[i].idCliente);
         	indiceBusqueda=cliente_buscarPorId(arrayCliente,cantidadElementos,arrayCliente[i].id);
-            if((arrayCliente[i].isEmpty==0) /*&& (arrayCliente[i].idNacionalidad==listaPais[indiceBusqueda].id*/)
+            if((arrayCliente[i].isEmpty==0))
             {
                 cliente_mostrarUnoSolo(arrayCliente[i],indiceBusqueda);
             }
         }
     }
 }
+/** \brief busca un indice vacio en el array para poder cargar un elemento
+ *
+ * \param  el array de cliente
+ * \param  los elementos del array
+ * \param  una variable isempty que sea =lado a la variable de la estructura
+ * \return retorna i si encuentra indice libre -1 si no
+ *
+ */
 int cliente_buscarPorIsEmpty(Cliente* arrayCliente,int cantidadElementos,int isEmptyABuscar)
 {
     int retorno=-1;
@@ -122,6 +137,14 @@ int cliente_buscarPorIsEmpty(Cliente* arrayCliente,int cantidadElementos,int isE
     }
     return retorno;
 }
+/** \brief busca un indice lleno por medio de la id
+ *
+ * \param  el array de cliente
+ * \param  los elementos del array
+ * \param  una variable id para igualarla a la dde la estructura
+ * \return retorna i si encuentra el id -1 si no
+ *
+ */
 int cliente_buscarPorId(Cliente* arrayCliente,int cantidadElementos,int idABuscar)
 {
     int retorno=-1;
@@ -136,6 +159,13 @@ int cliente_buscarPorId(Cliente* arrayCliente,int cantidadElementos,int idABusca
     }
     return retorno;
 }
+/** \brief da de alta un cliente determinado generando su propia id verificando si el array esta lleno o libre
+ *
+ * \param array de cliente
+ * \param los elementos del array
+ * \return retorna 1 y da de alta la venta o -1 y error
+ *
+ */
 int cliente_darDeAlta(Cliente* arrayCliente,int cantidadElementos,int* contAltas)
 {
     int confirmacion;
@@ -145,7 +175,6 @@ int cliente_darDeAlta(Cliente* arrayCliente,int cantidadElementos,int* contAltas
     int auxCodigoInt=*contAltas;
     Cliente auxDatos;
     char auxiliarCuit[12];
-    //char auxCantPremios[256];
     indice=cliente_buscarPorIsEmpty(arrayCliente,cantidadElementos,1);
     if(indice==-1)
     {
@@ -180,22 +209,6 @@ int cliente_darDeAlta(Cliente* arrayCliente,int cantidadElementos,int* contAltas
             ingreso=0;
         }
 
-        /*if(ingreso==1)
-        {
-            pais_mostrarLista(listaPais,tamPais);
-            if(getStrNumerosSinRango("\nIngrese el id de un pais: ",auxIdPaisStr,"\nSolo se permiten numeros\n",3))
-            {
-                if(pais_buscarPorId(listaPais,tamPais,atoi(auxIdPaisStr))==-1)
-                {
-                    printf("\nEl id ingresado no existe\n");
-                    ingreso=0;
-                }
-                else
-                {
-                    auxDatos.idNacionalidad=atoi(auxIdPaisStr);
-                }
-            }
-        }*/
         if(ingreso==1)
         {
             confirmacion=confirmarCambios("\nDar de alta? (s/n): ","\n('s' o con 'n'): ");
@@ -208,11 +221,6 @@ int cliente_darDeAlta(Cliente* arrayCliente,int cantidadElementos,int* contAltas
                 printf("\nSe ha dado de alta al numero %d\n",auxCodigoInt);
                 retorno=1;
             }
-            /*else if(confirmacion==0)
-            {
-                printf("\nAlta cancelada\n");
-                retorno=0;
-            }*/
         }
     }
     if(retorno==-1)
@@ -221,6 +229,13 @@ int cliente_darDeAlta(Cliente* arrayCliente,int cantidadElementos,int* contAltas
     }
     return retorno;
 }
+/** \brief da de baja un cliente determinado
+ *
+ * \param array de cliente
+ * \param los elementos del array
+ * \return retorna sePudo=1 y da de baja o -1 y error
+ *
+ */
 int cliente_darDeBaja(Cliente* arrayCliente,int cantidadElementos)
 {
     int sePudo=-1;
@@ -234,7 +249,7 @@ int cliente_darDeBaja(Cliente* arrayCliente,int cantidadElementos)
     }
     else
     {
-        cliente_mostrar(arrayCliente,cantidadElementos); // poner prestamos
+        cliente_mostrar(arrayCliente,cantidadElementos);
         if(getStrNumerosSinRango("\nIngrese el id a dar de baja: ",auxCodigoStr,"\nSolo se permiten numeros\n",3))
         {
             auxCodigoInt=atoi(auxCodigoStr);
@@ -266,6 +281,13 @@ int cliente_darDeBaja(Cliente* arrayCliente,int cantidadElementos)
     }
     return sePudo;
 }
+/** \brief modifica datos de un cliente determinado por id
+ *
+ * \param array de cliente
+ * \param los elementos del array
+ * \return retorna sePudo=1 y si se modifica o -1 y error
+ *
+ */
 int cliente_modificarDatos(Cliente* arrayCliente,int cantidadElementos)
 {
     int sePudo=0;
@@ -300,6 +322,12 @@ int cliente_modificarDatos(Cliente* arrayCliente,int cantidadElementos)
     }
     return sePudo;
 }
+/** \brief pide datos de un cliente para modificar sus variables por id
+ *
+ * \param array de cliente
+ * \param los elementos del array
+ * \param indice
+ */
 void cliente_pedirDatosAModificar(Cliente* arrayCliente,int cantidadElementos,int indice)
 {
    // int indiceBusqueda;
@@ -317,11 +345,8 @@ void cliente_pedirDatosAModificar(Cliente* arrayCliente,int cantidadElementos,in
         printf("\nCODIGO      NOMBRE        APELLIDO        GENERO          CUIL\n");
 
         printf("\nDatos actuales seleccionados:\n");
-        //indiceBusqueda=pais_buscarPorId(listaPais,tamPais,arrayCliente[indice].idNacionalidad);
-
         cliente_mostrarUnoSolo(arrayCliente[indice], indice);
         printf("\nDatos a modificar:\n");
-        //indiceBusqueda=pais_buscarPorId(listaPais,tamPais,proximosDatos.idNacionalidad);
         cliente_mostrarUnoSolo(proximosDatos,indice);
 
         printf("\nQue datos le gustaria modificar?\n");
@@ -367,19 +392,13 @@ void cliente_pedirDatosAModificar(Cliente* arrayCliente,int cantidadElementos,in
                 system("pause");
                 break;
             case 4:
-            	 if(getStrNumerosSinRango("\nIngrese el id de una nacionalidad: ",auxCuitStr,"\nSolo se permiten numeros\n",3))
+            	 if(getStrNumerosSinRango("\nIngrese el cuit: ",auxCuitStr,"\nSolo se permiten numeros\n",3))
             	 {
             	     strcpy(proximosDatos.cuit,(auxCuitStr));
             	     printf("\nSe ha ingresado el cuit\n");
        	             flagPrimerCambio=1;
 
             	 }
-                /*if(!getStrNumeros("\nIngrese Cuit: ",auxDatos.cuit,"\nError. reintente\n","\nRango 12 numeros\n",1,999,3))
-                {
-                	strcpy(proximosDatos.cuit,auxDatos.cuit);
-                	printf("\nSe ha ingresado el cuit\n");
-                	flagPrimerCambio=1;
-                }*/
                 system("pause");
                 break;
             case 5:
